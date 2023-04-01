@@ -1,0 +1,73 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+   </head>
+   <!-- body -->
+   <body>
+      <!-- products -->
+      <div  class="products">
+         <div class="container">
+         
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="our_products">
+                     <div class="row">
+                     {% if msg %}
+                        <center><font size="5">
+                        <b style="color:black;">{{msg}}</b>
+                        </font></center>
+                     {% endif %}
+                        <div class="col-md-6 margin_bottom1">
+                           <div class="product_box">
+                              <figure><img src="{{product.product_image.url}}" alt="#" /></figure>
+                           </div>
+                        </div>
+                        <div class="col-md-6 margin_bottom1">
+                           <div class="product_box">
+                              <h3>{{product.product_category}}</h3>
+                              <h3>{{product.product_name}}</h3>
+                              <h3>{{product.product_price}}</h3>
+                              <h3>{{product.product_desc}}</h3>
+                              <h3>{{product.discount}}</h3>
+                           </div>
+                        </div>   
+                        {% if request.session.email %}
+                           {% if cart_flag == True %}
+                              <div class="col-md-6" style="margin-left: -100px;">
+                              <a class="read_more" href="{% url 'remove_from_cart' pk=product.pk %}">remove_from_cart</a>
+                              </div>
+                           {% else %}
+                              <div class="col-md-6" style="margin-left: 50px;">
+                                 <a class="read_more" href="{% url 'add_to_cart' pk=product.pk %}">add to cart</a>
+                              </div>
+                           {% endif %}
+                           
+                           {% if wishlist_flag == True %}
+                              <div class="col-md-6" style="margin-left: -100px;">
+                                 <a class="read_more" href="{% url 'remove_from_wishlist' pk=product.pk %}">
+                                 remove_from_wishlist</a>
+                              </div>
+                           {% else %}
+                              <div class="col-md-6" style="margin-left: -100px;">
+                                 <a class="read_more" href="{% url 'add_to_wishlist' pk=product.pk %}">add to whishlist</a>
+                              </div>
+                           {% endif %} 
+                        {% else %}
+                        <div class="col-md-6" style="margin-left: -100px;">
+                           <a class="read_more" href="{% url 'login' %}">Login</a>
+                        </div>
+                        {% endif %}
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- end products -->
+   </body>
+</html>
+
+{% endblock %}

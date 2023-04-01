@@ -1,0 +1,72 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+   </head>
+   <!-- body -->
+   <body>
+      <!-- products -->
+      <div  class="products">
+         <div class="container">
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="titlepage">
+                     {% if myorders %}
+                        <h2>My Orders</h2>
+                     {% else %}
+                        <h2>no products</h2>
+                     {% endif %}
+                  </div>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="our_products">
+                     {% if msg %}
+                        <center><font size="5">
+                        <b style="color:black;">{{msg}}</b>
+                        </font></center>
+                     {% endif %}
+                     <div class="row">
+                        
+                        {% for i in myorders %}
+                           
+                           <div class="col-md-4 margin_bottom1">
+                              <div class="product_box">
+                                 <a href="{% url 'product_detail' pk=i.product.pk %}">
+                                    <figure><img src="{{i.product.product_image.url}}" alt="#" style="width: 200px;height: 200px;" /></figure>
+                                 </a>
+                                    <br><br><br>
+                                    <h3>{{i.product.product_name}}</h3>
+                                    <form method="post" action="{% url 'change_qty_a' pk=i.pk %}">
+                                       {% csrf_token %}
+                                       Product QTY<input type="number" name="product_qty" value="{{i.product_qty}}" min="0" max="10" onchange="this.form.submit();">
+                                       
+                                    </form>
+                                    <h4>Product price {{i.product_price}}</h4>
+                                    <h4>Total Price {{i.total_price}}</h4>
+                                 
+                              </div>
+                           </div>
+                           
+                        {% endfor %}
+                     </div>
+                     <h2>Net Price={{net_price}}</h2>
+                     <br>
+                     <form method="post" action="{% url 'pay' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="amount" value="{{net_price}}">
+                        <input type="submit" value="Buy Again" class="btn btn-primary" >
+                     </form>
+                  </div>
+               </div>
+            </div>   
+         </div>
+      </div>
+      <!-- end products -->
+   </body>
+</html>
+
+{% endblock %}

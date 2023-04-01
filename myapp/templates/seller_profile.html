@@ -1,0 +1,65 @@
+{% extends 'seller_header.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+   </head>
+   <!-- body -->
+   <body>
+      <!--  contact -->
+      <div class="contact">
+         <div class="container">
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="titlepage">
+                     <h2>Profile</h2>
+                  </div>
+               </div>
+            </div>
+            <div class="row">
+               
+               <div class="col-md-10 offset-md-1">
+               {% if msg %}
+                  <center><font size="5">
+                  <b style="color:white;">{{msg}}</b>
+                  </font></center>
+               {% endif %}
+                  <form id="request" class="main_form" method="post" action="{% url 'profile' %}" enctype="multipart/form-data">
+                     {% csrf_token %}
+                     <div class="row">
+                        <div class="col-md-12 ">
+                           <input class="contactus" placeholder="First Name" type="type" name="fname" value="{{user.fname}}"> 
+                        </div>
+                        <div class="col-md-12 ">
+                           <input class="contactus" placeholder="Last Name" type="type" name="lname" value="{{user.lname}}"> 
+                        </div>
+                        <div class="col-md-12">
+                           <input class="contactus" placeholder="Email" type="type" name="email" value="{{user.email}}" readonly> 
+                        </div>
+                        <div class="col-md-12">
+                           <input class="contactus" placeholder="Mobile Number" type="type" name="mobile" value="{{user.mobile}}">                          
+                        </div>
+                        <div class="col-md-12">
+                           <textarea class="textarea" placeholder="Address" type="type" name="address">{{user.address}}</textarea>
+                        </div>
+                        <div class="col-md-12">
+                          <img src="{{user.profile_pic.url}}" height="500px" width="500px">
+                        </div>
+                        <div class="col-md-12">
+                           <input class="contactus" type="file" name="profile_pic">                          
+                        </div>
+                        <div class="col-md-12">
+                           <button class="send_btn">Update Profile</button>
+                        </div>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- end contact -->
+   </body>
+</html>
+
+{% endblock %}

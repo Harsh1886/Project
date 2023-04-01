@@ -1,0 +1,51 @@
+{% extends 'seller_header.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+   </head>
+   <!-- body -->
+   <body>
+      <!-- three_box -->
+      <div class="three_box">
+         <div class="container">
+            <div class="row">
+               {% if msg %}
+                  <center><font size="5">
+                  <b style="color:black;">{{msg}}</b>
+                  </font></center>
+               {% endif %}
+               <div class="col-md-4">
+                  <div class="box_text">
+                     <a href="{% url 'seller_product' pc='Computer' %}">
+                        <i><img src="{% static 'images/thr.png' %}" alt="#"/></i>
+                        <h3>Computer</h3>
+                     </a>
+                  </div>
+               </div>
+               <div class="col-md-4">
+                  <div class="box_text">
+                     <a href="{% url 'seller_product' pc='Laptop' %}">
+                        <i><img src="{% static 'images/thr1.png' %}" alt="#"/></i>
+                        <h3>Laptop</h3>
+                     </a>
+                  </div>
+               </div>
+               <div class="col-md-4">
+                  <div class="box_text">
+                     <a href="{% url 'seller_product' pc='Accessories' %}">
+                        <i><img src="{% static 'images/thr2.png' %}" alt="#"/></i>
+                        <h3>Accessories</h3>
+                     </a>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <br><br> <br>
+      <!-- three_box -->
+   </body>
+</html>
+
+{% endblock %}
